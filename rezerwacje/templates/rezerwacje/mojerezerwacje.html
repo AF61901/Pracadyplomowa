@@ -1,0 +1,32 @@
+{% extends "rezerwacje/base.html" %}
+{% block content %}
+
+{% if Rezerwacje %}
+<div style="margin-bottom: 2rem;"><h1>Moje Rezerwacje</h1></div>
+<div id="section">
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <td><strong>Lekarz</strong></td>
+    <td><strong>Specjalizacja</strong></td>
+  <td><strong>Data</strong></td>
+  <td><strong>Godzina</strong></td>
+  <td><strong>Status</strong></td>
+ </tr>
+
+ {% for post in Rezerwacje %}
+   <tr>
+   <td>{{ post.lekarz }}</td>
+   <td>{{ post.lekarz.lekarze.get_specjalizacja_display }}</td>
+   <td>{{ post.data }}</td>
+   <td>{{ post.get_godzina_display }}</td>
+   <td></td>
+</tr>
+   {% endfor %}
+
+ </table>
+ {% else %}
+<h1 style="text-align: center; background-color: #00529F; color: white; padding: 15px;">Brak zamówień</h1>
+ {% endif %}
+ </div> 
+
+{% endblock content %}

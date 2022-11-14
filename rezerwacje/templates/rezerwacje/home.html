@@ -1,0 +1,127 @@
+{% extends "rezerwacje/base.html" %}
+{% load static %}
+
+{% block carousel %}
+<div class="col">
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'rezerwacje/kar1.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption " id="cpt">
+                <div id="cpd" ><h4>Przychodnia MEDmed - z troską o ciebie</h4>
+                <p>Zapraszamy do zapisywania się w nowoczesnej przychodni w samym centrum miasta. Krótki czas oczekiwania na wizyty. Mamy podpisany kontrakt z NFZ!</p>
+            </div>
+              </div>
+            
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'rezerwacje/kar2.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption " id="cpt">
+                <div id="cpd" ><h4>Wysoka jakość świadczonych usług</h4>
+                    <p>Jesteśmy dla Ciebie i Twoich bliskich. Wasze zdrowie jest dla nas priorytetem.</p>
+                    <p><a href="{% url 'rezerwacje-lekarze'  %}"><button id="btn2">Zobacz nasz personel</button></a></p>
+            </div>
+          </div>
+          </div>
+          
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+
+      </div>
+     
+  </div>
+
+{% endblock carousel %}
+
+
+
+{% block content %}
+
+  <div style="text-align: center;"><h2 id="had"><span id="spad">Nasi Lekarze</span></h2></div>
+  <div class="row" style="margin-top: 2rem;">
+    {% for post in lekarze %}
+    
+    <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
+        <div class="col" id="cntimg">
+            <div class="row">
+                <div class="col">
+            <img id="shw"  src="{{ post.image.url }}">
+                </div>
+    
+            
+                </div>
+    <h3>{{ post.get_tytul_display }} {{ post.imie }} {{ post.nazwisko}}</h3>
+    <p class="text-secondary">{{ post.get_specjalizacja_display }}</p>
+    </div>
+    </div>
+    
+    {% endfor %}
+    
+    </div>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6" style="text-align: center;">
+    <a href="{% url 'rezerwacje-lekarze' %}"><button id="btn">Zobacz całą kadrę</button></a>
+</div>
+<div class="col-3"></div>
+</div>
+
+
+<div style="text-align: center; margin-top: 25px;"><h2 id="had"><span id="spad">Poradnie specjalistyczne</span></h2></div>
+
+  <div class="row" style="margin-top: 2rem;">
+
+  
+
+    <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
+        <div class="col" id="cntimg">
+            Dermatologia
+            <div class="row">
+                <div class="col">
+                </div>
+    
+            
+                </div>
+
+    </div>
+    </div>
+
+    <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
+        <div class="col" id="cntimg">
+            Dermatologia
+            <div class="row">
+                <div class="col">
+                </div>
+    
+            
+                </div>
+
+    </div>
+    </div>
+    <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
+        <div class="col" id="cntimg">
+            Dermatologia
+            <div class="row">
+                <div class="col">
+                </div>
+    
+            
+                </div>
+
+    </div>
+    </div>
+    
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "rezerwacje/base.html" %}
+{% block content %}
+
+
+
+<div>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <td><strong></strong></td>
+    <td><strong>Lekarz</strong></td>
+    <td><strong>Specjalizacja</strong></td>
+  <td><strong>Telefon</strong></td>
+  <td><strong>Email</strong></td>
+ </tr>
+
+ {% for post in Lekarze %}
+   <tr>
+    <td style="text-align: center;"><img style="height: 40px; text-align: center;" src="{{ post.image.url }}"></td>
+   <td>{{ post.get_tytul_display }}  {{ post.imie }} {{ post.nazwisko}}</td>
+   <td>{{ post.get_specjalizacja_display }}</td>
+   <td>{{ post.telefon }}</td>
+   <td>{{ post.email }}</td>
+   <td><a href="{% url 'rezerwacje-rezerwuj' post.id %}"><button id="btn3">Umów wizytę</button></a></td>
+</tr>
+   {% endfor %}
+
+ </table>
+
+ </div> 
+
+{% endblock content %}

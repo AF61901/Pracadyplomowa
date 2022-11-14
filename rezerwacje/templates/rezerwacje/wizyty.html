@@ -1,0 +1,30 @@
+
+{% extends "rezerwacje/base.html" %}
+{% block content %}
+
+{% if Rezerwacje %}
+<div id="spc" style="margin-bottom: 2rem;"><h1>Zaplanowane wizyty</h1></div>
+
+<div>
+    <table class="table table-bordered table-striped table-hover">
+      <tr>
+        <td><strong>Data</strong></td>
+        <td><strong>Godzina</strong></td>
+        <td><strong>Pacjent</strong></td>
+     </tr>
+    
+     {% for post in Rezerwacje %}
+       <tr>
+       <td>{{ post.data }}</td>
+       <td>{{ post.get_godzina_display }}</td>
+       <td>{{ post.pacjent}}</td>
+    </tr>
+       {% endfor %}
+    
+     </table>
+     {% else %}
+    <h1 style="text-align: center; background-color: #00529F; color: white; padding: 15px;">Brak zamówień</h1>
+     {% endif %}
+     </div> 
+    
+    {% endblock content %}

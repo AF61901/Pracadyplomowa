@@ -1,0 +1,25 @@
+{% extends "rezerwacje/base.html" %}
+
+{% block content %}
+
+{% if user.is_patient %} 
+<img src="{{ user.pacjenci.image.url }}">
+{{ user.imie }}
+{{ user.nazwisko }}
+{{ user.email }}
+{{ user.telefon }}
+{{ user.pacjenci.miejscowosc }}
+{{ user.pacjenci.ulica }}
+{{ user.pacjenci.numer_domu }}
+
+{% elif user.is_doctor %} 
+<img src="{{ user.lekarze.image.url }}">
+{{ user.lekarze.get_tytul_display }}
+{{ user.imie }}
+{{ user.nazwisko }}
+{{ user.lekarze.get_specjalizacja_display }}
+{{ user.email }}
+
+{% endif %} 
+
+{% endblock content %}

@@ -1,0 +1,94 @@
+from django.shortcuts import render, redirect
+from .models import Rezerwacje, Pacjenci, Lekarze
+from .forms import RezerwacjeForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
+
+def home(request):
+    context ={
+        'lekarze': Lekarze.objects.all()[:3],
+        "title" : "Strona Główna"
+    }
+    return render(request, 'rezerwacje/home.html', context)
+
+def onas(request):
+    return render(request, 'rezerwacje/onas.html')
+
+def lekarze(request):
+    context ={
+        'lekarze': Lekarze.objects.all(),
+        "title" : "Oferta"
+    }
+    return render(request, 'rezerwacje/lekarze.html', context)
+
+
+class WizytyListView(LoginRequiredMixin, ListView):
+    model = Rezerwacje
+    template_name = 'rezerwacje/wizyty.html'
+    context_object_name = 'Rezerwacje'
+
+
+
+    def get_queryset(self):
+        return Rezerwacje.objects.filter(
+            lekarz=self.request.user
+        ).order_by('data')  
+
+
+class MojeListView(LoginRequiredMixin, ListView):
+    model = Rezerwacje
+    template_name = 'rezerwacje/mojerezerwacje.html'
+    context_object_name = 'Rezerwacje'
+
+
+    def get_queryset(self):
+        return Rezerwacje.objects.filter(
+            pacjent=self.request.user
+        ).order_by('data')
+
+class UmowListView(LoginRequiredMixin, ListView):
+    model = Lekarze
+    template_name = 'rezerwacje/umow.html'
+    context_object_name = 'Lekarze'
+
+
+    def get_queryset(self):
+        return Lekarze.objects.all()
+
+@login_required
+def new_rezerwacja(request, id=None):
+    form = RezerwacjeForm(request.POST)
+    desc = Lekarze.objects.get(id=id)
+    if not request.user.is_authenticated:
+        return redirect('/loguj')
+
+    if form.is_valid():
+        data = form.cleaned_data['data']
+        godzina = form.cleaned_data['godzina']
+        zamowienie = Rezerwacje(pacjent=request.user.pacjenci, lekarz=desc,
+            data=data, godzina=godzina)
+
+        if data <= data.today():
+            messages.warning(request, f'Data się nie zgadza')
+            return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
+        elif data.isoweekday() > 5:
+            messages.warning(request, f'Nie w weekend')
+            return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
+        else:
+            zamowienie.save()
+            return redirect('/moje')
+
+
+    else:
+        form = RezerwacjeForm()
+        return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})

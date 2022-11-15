@@ -1,10 +1,21 @@
+body{
+    background-color: #f9f9f9;
+}
+
 #nv, #ft{
     background-color: #336b6d;
+    font-size: 18px;
   }
 
 
 #shw{
     width: 150px;
+}
+
+#tyt{
+  background-color: #f9f9f9;
+  text-align: center;
+  
 }
 
 #lek{
@@ -15,6 +26,7 @@
   border-radius: 15px;
   border: 2px solid grey;
   margin-bottom: 10px;
+  background-color: white;
 }
 
 #cntimg{
@@ -26,9 +38,9 @@
 }
 
 #btn{   
-    background-color: white;   
+  background-color: #3b8686;    
     width: 50%;  
-     color: #3b8686;   
+     color: white;   
      padding: 10px;   
      margin: 5px 0px;   
      border: 2px solid #3b8686;
@@ -38,8 +50,8 @@
 
 #btn:hover{
     transition: 0.5s;
-    background-color: #3b8686; 
-    color: white; 
+    background-color: white; 
+    color: #3b8686; 
   }
 
 #btn2{   
@@ -64,18 +76,53 @@
     background-color: #3b8686;
     width: 100%;
 }
+#had{
 
-#had {
-    width: 100%; 
-    text-align: center; 
-    border-bottom: 1px solid #000; 
-    line-height: 0.1em;
-    margin: 10px 0 20px; 
- } 
+    position: relative;
+    font-size: 30px;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+
+}
+
+#had:before, #had:after {
+  position: absolute;
+  top: 51%;
+  overflow: hidden;
+  width: 50%;
+  height: 1px;
+  content: '\a0';
+  background-color: black;
+}
+
+#had:before {
+  margin-left: -50%;
+  text-align: right;
+}
  
-#had, #spad { 
-     background:#fff; 
+#spad { 
+   
      padding:0 10px; 
+ }
+
+ #ops{
+  padding: 30px 20px 10px 30px;
+  border-radius: 25px 0px 0px 0px;
+  font-size: 18px;
+  background-color: white;
+  border: 1px solid grey;
+
+  margin-bottom: 5px;
+ }
+ #ops2{
+  padding: 40px 20px 10px 40px;
+  border-radius: 0px 25px 0px 0px;
+  font-size: 18px;
+  background-color: white;
+  border: 1px solid grey;
+
+  margin-bottom: 5px;
  }
 
 #cpd{
@@ -84,11 +131,7 @@
     padding: 10px;
     border-radius: 25px;
 } 
- #cpt{
-    top: 0;
-    margin-top: 60px;
-    margin-left: 200px;
- }
+ 
  .carousel-item{
     height: 500px;
   } 
@@ -163,8 +206,8 @@
         height: 250px;
       }
       #btn2{   
-          
-         height: 50px;
+        height: 50px;
+         width: 70%;
          padding: 5px; 
     }
 

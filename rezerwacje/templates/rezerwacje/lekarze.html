@@ -1,6 +1,8 @@
 {% extends "rezerwacje/base.html" %}
 {% block content %}
 
+<div id="tyt" style="margin-bottom: 3rem;"><h2 id="had"><span id="spad">Nasza kadra</span></h2></div>
+
 {% for post in lekarze %}
 <div id="olek">
 <div class="row">
@@ -16,7 +18,7 @@
 </div>
    
 <div class="col col-lg-12 col-xl-4" style="text-align:center ;">
-    <a href="{% url 'rezerwacje-rezerwuj' post.id %}"><button id="btn" style="margin-top: 5rem;">Umów wizytę</button></a>
+    <a href="{% url 'rezerwacje-rezerwuj' post.id %}"><button id="btn" style="margin-top: 4rem; margin-bottom: 1rem;">Umów wizytę</button></a>
 </div>
 </div>
     

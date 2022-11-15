@@ -1,0 +1,34 @@
+{% extends "rezerwacje/base.html" %}
+{% block content %}
+
+{% if Kontakt %}
+<div id="tyt" style="margin-bottom: 2rem;"><h2 id="had"><span id="spad">Wiadomości użytkowników</span></h2></div>
+<div id="section">
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <td><strong>Data wysłania</strong></td>
+    <td><strong>Adres email</strong></td>
+    <td><strong>Imię i nazwisko</strong></td>
+  <td><strong>Telefon</strong></td>
+  <td><strong>Tytuł wiadomości</strong></td>
+
+ </tr>
+
+ {% for post in Kontakt %}
+   <tr>
+    <td>{{ post.submit_date }}</td>
+   <td>{{ post.email }}</td>
+   <td>{{ post.imieinazwisko }}</td>
+   <td>{{ post.telefon }}</td>
+   <td>{{ post.tytul }}</td>
+   <td>Sprawdz Usuń</td>
+</tr>
+   {% endfor %}
+
+ </table>
+ {% else %}
+<h1 style="text-align: center; background-color: #3b8686; color: white; padding: 15px;">Brak wiadomości</h1>
+ {% endif %}
+ </div> 
+
+{% endblock content %}

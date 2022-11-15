@@ -6,18 +6,15 @@
         {% csrf_token %}
         <fieldset class="form-group">
             <legend>
-            <div id="tyt" ><h2 id="had" style="text-align: left;"><span id="spad">Zaloguj się</span></h2></div>
+            <div id="tyt" ><h2 id="had" style="text-align: left;"><span id="spad">Dodaj lekarza</span></h2></div>
         </legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button type="submit" id="btn" style="width: 100%;">
-                Zaloguj
+            <button type="submit" id="btn" style="width: 100%; margin-bottom: 3rem;">
+                Dodaj
             </button>
         </div>
     </form>
-    <div class="border-top pt-3">
-        <small>Nie masz konta? <a href="{% url 'rejestruj' %}">Zarejestruj się</a></small>
-    </div>
 </div>
 {% endblock content %}

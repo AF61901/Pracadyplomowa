@@ -20,7 +20,7 @@
   <nav class="navbar navbar-expand-sm navbar-dark" id="nv">
     <div class="container">
       
-      <a class="navbar-brand" href="{% url 'rezerwacje-home' %}">Przychodnia</a>
+      <a class="navbar-brand" href="{% url 'rezerwacje-home' %}">MEDmed</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,10 +30,10 @@
             <a class="nav-link" href="{% url 'rezerwacje-lekarze' %}">Lekarze</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">O nas</a>
+            <a class="nav-link" href="{% url 'rezerwacje-onas' %}">O nas</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#">Kontakt</a>
+              <a class="nav-link" href="{% url 'rezerwacje-kontakt' %}">Kontakt</a>
             </li>
           
           <li class="nav-item">
@@ -43,17 +43,32 @@
         </ul>
   
         <ul class="nav navbar-nav navbar-right">
-        {% if user.is_superuser %} 
+        {% if user.is_moderator %} 
+        <li class="nav-item dropdown bg" >
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administracja</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item">
+              <a class="dropdown-item" href="{% url 'admin:index' %}">Panel admina</a>
+          </li> 
+        
+          <li class="nav-item">
+            <a class="dropdown-item" href="{% url 'dodaj' %}">Dodaj lekarza</a>
+        </li> 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'admin:index' %}">Administracja</a>
+          <a class="dropdown-item" href="{% url 'rezerwacje-wiadomosci' %}">Wiadomości użytkowników</a>
+      </li> 
+        
+          </ul>
         
       </li> 
         {% endif %} 
         {% if user.is_authenticated %} 
         <li class="nav-item dropdown bg" >
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_staff %} 
+            {% if user.is_superuser %} 
             Admin
+            {% elif user.is_moderator %}
+            {{ user.imie }} {{ user.nazwisko }}
             {% elif user.is_patient %}
             <img src="{{ user.pacjenci.image.url }}" style="width: 25px; margin-right:5px; border: solid 1px;">{{ user.imie }} {{ user.nazwisko }} 
             {% elif user.is_doctor %}

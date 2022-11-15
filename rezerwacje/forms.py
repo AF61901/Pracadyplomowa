@@ -2,7 +2,7 @@ from datetime import date
 
 from django import forms
 
-from .models import Rezerwacje, TIMESLOT_LIST
+from .models import Rezerwacje, Kontakt, TIMESLOT_LIST
 
 
 class DateInput(forms.DateInput):
@@ -35,3 +35,9 @@ class RezerwacjeForm(forms.ModelForm):
             raise forms.ValidationError('Data powinna być dniem roboczym)', code='invalid')
 
         return day  
+
+class KontaktForm(forms.ModelForm):
+     class Meta:
+        model = Kontakt
+        fields = '__all__'
+        exclude = ('submit_date',)

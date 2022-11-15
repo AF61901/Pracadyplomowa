@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Rezerwacje, Pacjenci, Lekarze
-from .forms import RezerwacjeForm
+from .models import Rezerwacje, Pacjenci, Lekarze, Kontakt
+from .forms import RezerwacjeForm, KontaktForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -22,14 +22,32 @@ def home(request):
     return render(request, 'rezerwacje/home.html', context)
 
 def onas(request):
-    return render(request, 'rezerwacje/onas.html')
+    return render(request, 'rezerwacje/onas.html', {'title': 'O nas'})
+
+def kontakt(request):
+    if request.method == 'POST':
+        form = KontaktForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Wysłano wiadomość!')
+            
+    else:
+        form = KontaktForm()
+    return render(request, 'rezerwacje/kontakt.html', {'form': form, 'title': 'Kontakt'}, )
 
 def lekarze(request):
     context ={
         'lekarze': Lekarze.objects.all(),
-        "title" : "Oferta"
+        "title" : "Lekarze"
     }
     return render(request, 'rezerwacje/lekarze.html', context)
+
+def wiadomosci(request):
+    context ={
+        'Kontakt': Kontakt.objects.all().order_by('submit_date') ,
+        "title" : "Wiadomości"
+    }
+    return render(request, 'rezerwacje/wiadomosci.html', context)
 
 
 class WizytyListView(LoginRequiredMixin, ListView):

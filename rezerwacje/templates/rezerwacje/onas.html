@@ -1,3 +1,75 @@
 {% extends "rezerwacje/base.html" %}
+{% load static %}
 {% block content %}
+
+
+<div class="row" style="margin-bottom: 3rem;">
+    <div id="tyt" style="margin-bottom: 2rem;"><h2 id="had"><span id="spad">O nas</span></h2></div>
+<div class="col-12 col-xl-7" id="ops">
+    <p>
+    Centrum medyczno-diagnostyczne MEDmed powstało z myślą o osobach dbających o zdrowie i ceniących jego wartość. 
+    Jest to miejsce, w którym najważniejszy jest Pacjent.
+</p>
+<p>
+    Wykonujemy najwyższej jakości diagnostykę i leczenie, mamy holistyczne podejście do leczenia Pacjentów, zapewniamy kompleksową ofertę badań i lekarzy specjalistów.
+</p>
+<p>
+    Dodatkowo w ramach umowy z NFZ przyjmujemy deklarację do lekarza rodzinnego, pediatry i pielęgniarki środowiskowej.
+</p>
+<p>
+    Naszą misją jest służyć życiu i zdrowiu ludzkiemu. Lekarze specjaliści pielęgniarki i personel administracji dokłada wszelkich starań aby wizyta w centrum była przyjemnością.
+</p>
+</div>
+
+<div class="col-12 col-xl-5">
+<img src="{% static 'rezerwacje/przych.jpg' %}" style="width: 100%; margin-bottom: 5px;">
+</div>
+
+</div>
+
+<div class="row" style="margin-bottom: 3rem;">
+    <div class="col-12 col-xl-5">
+        <img src="{% static 'rezerwacje/przychpers.jpg' %}" style="width: 100%; margin-bottom: 5px;">
+        </div>
+
+    <div class="col-12 col-xl-7" id="ops2">
+<b>Co nas wyróżnia?</b>
+<p>
+<li>miła atmosfera i obsługa Pacjenta</li>
+<li>dobra lokalizacja w centrum Krakowa
+<li>nowoczesny specjalistyczny sprzęt (badania RTG i USG również u dzieci)</li>
+<li>lekarze specjaliści z wieloletnim doświadczeniem zawodowym</li>
+<li>szeroki wybór poradni specjalistycznych: ginekolog, urolog, kardiolog, ortopeda, gastrolog, dermatolog, stomatolog</li>
+<li>możliwość złożenia deklaracji ONLINE do lekarza rodzinnego (POZ) w ramach kontraktu z NFZ</li>
+<li>wizyty umawiane na godziny, brak kolejek do lekarza rodzinnego</li>
+<li>pełna diagnostyka
+<li>nowoczesne, eleganckie wnętrza.</li>
+</p>
+<p>
+Personel medyczny poza kompleksową opieką nad chorymi, kładzie duży nacisk na profilaktykę oraz propagowanie zdrowego stylu życia.
+W ofercie centrum mamy szczepionki dla dzieci i dorosłych. W okresie jesienno-zimowym szczepimy przeciw grypie.
+</p>
+</div>
+</div>
+
+<div class="row" style="margin-bottom: 3rem;">
+    <div class="col-12 col-xl-6" id="ops" style="padding: 80px 25px 25px 80px;">
+<p>Zwracamy szczególną uwagę na miłą atmosferę w naszym centrum.
+Służymy fachową poradą i pomocą w rozwiązywaniu problemów zdrowotnych naszych Pacjentów.
+</p>
+<p>
+Każdy Pacjent, który chociaż raz do nas przyjdzie, zostaje już z nami.
+To jest chyba najlepsza rekomendacja tego miejsca.
+</p>
+<p>
+Serdecznie zapraszamy.
+</p>
+<p class="text-secondary">
+Zespół MEDmed
+</p>
+</div>
+<div class="col-12 col-xl-6">
+    <img src="{% static 'rezerwacje/przychstff.jpg' %}" style="width: 100%; margin-bottom: 5px;">
+    </div>
+</div>
 {% endblock %}

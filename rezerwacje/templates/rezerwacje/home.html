@@ -23,8 +23,8 @@
             <img src="{% static 'rezerwacje/kar2.jpg' %}" class="d-block w-100" alt="...">
             <div class="carousel-caption " id="cpt">
                 <div id="cpd" ><h4>Wysoka jakość świadczonych usług</h4>
-                    <p>Jesteśmy dla Ciebie i Twoich bliskich. Wasze zdrowie jest dla nas priorytetem.</p>
-                    <p><a href="{% url 'rezerwacje-lekarze'  %}"><button id="btn2">Zobacz nasz personel</button></a></p>
+                    <p>Jesteśmy dla Ciebie i Twoich bliskich. Wasze zdrowie jest dla nas priorytetem. Dokładamy wszelkich starań, aby opieka zdrowotna w naszym centrum była realizowana na najwyższym poziomie.</p>
+                  
             </div>
           </div>
           </div>
@@ -48,7 +48,24 @@
 
 {% block content %}
 
-  <div style="text-align: center;"><h2 id="had"><span id="spad">Nasi Lekarze</span></h2></div>
+<div id="tyt" ><h2 id="had"><span id="spad">Przychodnia zdrowia MEDmed</span></h2></div>
+<h4 style="text-align: center;">Twoje zdrowie jest dla nas najważniejsze</h4>
+<p style="text-align: center;">
+Każda osoba powinna mieć dostęp do profesjonalnej opieki zdrowotnej, niezależnie od choroby czy schorzenia, z którym się boryka. 
+Otwierając w Rzeszowie nasze centrum medyczne chcieliśmy stworzyć przychodnię, w której pacjenci będą mogli uzyskać pomoc z różnych dziedzin medycyny.
+ Obecnie poradnia specjalistyczna świadczy usługi z zakresu między innymi ortopedii, kardiologii, neurologii, urologii, stomatologii, dermatologii czy ginekologii.
+</p>
+ <p style="text-align: center;">
+Profesjonalna opieka zdrowotna, jak i wysoki standard udzielanych świadczeń zdrowotnych jest wynikiem połączenia wysokich umiejętności kadry medycznej oraz indywidualnego podejścia do każdego pacjenta. 
+To właśnie zaufanie ze strony pacjentów ma dla nas ogromną wartość. Odpowiedzialność, która na nas spoczywa, zobowiązuje do zapewnienia opieki medycznej na najwyższym poziomie - nasza poradnia specjalistyczna to zespół lekarzy z wieloletnim stażem.
+</p>
+<p style="text-align: center; margin-bottom: 3rem;">
+Dzięki pełnemu profesjonalizmowi, doskonale wykwalifikowanej kadrze medycznej oraz bardzo dobrej organizacji pracy przychodnia lekarska MEDmed jest jednym z wiodących centrów medyczno-diagnostycznych w Rzeszowie.
+</p>
+
+
+
+  <div id="tyt"><h2 id="had"><span id="spad">Nasi Lekarze</span></h2></div>
   <div class="row" style="margin-top: 2rem;">
     {% for post in lekarze %}
     
@@ -78,7 +95,7 @@
 </div>
 
 
-<div style="text-align: center; margin-top: 25px;"><h2 id="had"><span id="spad">Poradnie specjalistyczne</span></h2></div>
+<div id="tyt" style="margin-top: 3rem;"><h2 id="had"><span id="spad">Poradnie specjalistyczne</span></h2></div>
 
   <div class="row" style="margin-top: 2rem;">
 

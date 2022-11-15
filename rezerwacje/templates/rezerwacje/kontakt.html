@@ -1,3 +1,48 @@
 {% extends "rezerwacje/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block carousel %}
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2093.383579003197!2d21.999132518686007!3d50.04108349673628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1668531073773!5m2!1spl!2spl" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe>
+{% endblock %}
+
+
 {% block content %}
+
+<div class="row" style="margin-bottom: 3rem;">
+<div class="col-12 col-xl-6">
+<div id="tyt" ><h2 id="had" style="text-align: left;"><span id="spad">Dane adresowe</span></h2></div>
+
+<div style="padding: 20px 20px 20px 60px;">
+<p>ul. Medyczna 2<br>
+35-011 Rzeszów</p>
+<p>tel. 22 780 23 89<br>
+fax: 22 654 90 66<br>
+Sekretariat Zarządu: 22 234 90 09</p>
+<p>Godziny pracy rejestracji:<br>
+pn. – pt. 7:30 – 18:30<br>
+Godziny pracy sekretariatu medycznego:<br>
+pn.-pt. 7:00 – 15:00</p>
+<p>e-mail przychodni: przychodnia@medmed.pl</p>
+</div>
+</div>
+
+
+<div class="col-12 col-xl-6">
+    <div id="tyt" ><h2 id="had" style="text-align: left;"><span id="spad">Formularz kontaktowy</span></h2></div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button type="submit" id="btn">
+                Wyślij
+            </button>
+        </div>
+    </form>
+    </div>
+
+</div>
+
 {% endblock %}

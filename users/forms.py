@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pacjenci
+from .models import Pacjenci, Lekarze, TITLE_CHOICES, SPECIALIZATION_CHOICES
 from django.forms import TextInput
 from django.contrib.auth.forms import UserCreationForm
 from phonenumber_field.formfields import PhoneNumberField
@@ -34,3 +34,24 @@ class UserRegisterForm(UserCreationForm):
         'ulica',
         'numer_domu',
         'numer_lokalu']
+
+class DoctorRegisterForm(UserCreationForm):
+
+    image = forms.ImageField(label='Zdjęcie', required=False)
+    imie = forms.CharField(label='Imię')
+    nazwisko = forms.CharField()
+    telefon = PhoneNumberField(widget=TextInput(attrs={'type':'number'}))
+    tytul = forms.ChoiceField(label='Tytuł', choices=TITLE_CHOICES)
+    specjalizacja = forms.ChoiceField(choices=SPECIALIZATION_CHOICES)
+
+    class Meta:
+        model = Lekarze
+        fields = ['email', 
+        'password1', 
+        'password2', 
+        'imie', 
+        'nazwisko',
+        'telefon',
+        'tytul', 
+        'specjalizacja', 
+        'image']

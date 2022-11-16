@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     MojeListView,
     WizytyListView,
-    UmowListView
+    UmowListView,
+    WiadomosciDeleteView
 )
 from . import views
 
@@ -17,4 +18,5 @@ urlpatterns = [
     path('moje/', MojeListView.as_view(), name='rezerwacje-moje'),
     path('wizyty/', WizytyListView.as_view(), name='rezerwacje-wizyty'),
     path('wiadomosci/', views.wiadomosci, name='rezerwacje-wiadomosci'),
+    path('wiadomosci/<pk>/remove/', WiadomosciDeleteView.as_view(), name='usun_wiadomosc')
 ]

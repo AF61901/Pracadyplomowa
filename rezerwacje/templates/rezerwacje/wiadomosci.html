@@ -1,34 +1,88 @@
 {% extends "rezerwacje/base.html" %}
+{% load static %}
+
 {% block content %}
 
 {% if Kontakt %}
 <div id="tyt" style="margin-bottom: 2rem;"><h2 id="had"><span id="spad">Wiadomości użytkowników</span></h2></div>
 <div id="section">
-<table class="table table-bordered table-striped table-hover">
-  <tr>
+<table class="table table-bordered table-striped table-hover" style="margin-bottom: 3rem;">
+  <tr id="tbl">
     <td><strong>Data wysłania</strong></td>
     <td><strong>Adres email</strong></td>
     <td><strong>Imię i nazwisko</strong></td>
   <td><strong>Telefon</strong></td>
-  <td><strong>Tytuł wiadomości</strong></td>
 
  </tr>
 
  {% for post in Kontakt %}
-   <tr>
+   <tr id="tbl">
     <td>{{ post.submit_date }}</td>
    <td>{{ post.email }}</td>
    <td>{{ post.imieinazwisko }}</td>
    <td>{{ post.telefon }}</td>
-   <td>{{ post.tytul }}</td>
-   <td>Sprawdz Usuń</td>
+  <td>
+
+<button type="button" id="btn2" data-bs-toggle="modal" data-bs-target="#tst{{post.id}}">
+  Sprawdź
+</button>
+
+<div class="modal fade" id="tst{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">{{ post.tytul }}</h5>
+      </div>
+      <div class="modal-body">
+        {{ post.wiadomosc }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn2" data-bs-dismiss="modal">Zamknij</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+  </td>
+   <td>
+    
+    <button type="button" id="btn2" data-bs-toggle="modal" data-bs-target="#dlt{{post.id}}">
+      Usuń
+    </button>
+    
+    <div class="modal fade" id="dlt{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <div class="modal-body">
+            Czy na pewno usunąć wiadomość:<br>
+            {{ post.submit_date }}<br>
+            {{ post.email}} {{ post.imieinazwisko }}
+              </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" id="btn2" data-bs-dismiss="modal">Anuluj</button>
+            <form action="{% url 'usun_wiadomosc' pk=post.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="id" id="post_id"/>
+              <button type="submit" id="btn2">Usuń</button>
+            </form>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    
+   </td>
 </tr>
    {% endfor %}
+
 
  </table>
  {% else %}
 <h1 style="text-align: center; background-color: #3b8686; color: white; padding: 15px;">Brak wiadomości</h1>
  {% endif %}
  </div> 
+
 
 {% endblock content %}

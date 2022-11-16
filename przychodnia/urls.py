@@ -28,7 +28,7 @@ urlpatterns = [
     path('loguj/', auth_views.LoginView.as_view(template_name='users/loguj.html'), name='loguj'),
     path('wyloguj/', auth_views.LogoutView.as_view(template_name='users/wyloguj.html'), name='wyloguj'),
     path('', include('rezerwacje.urls'))
-]
+] 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

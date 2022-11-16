@@ -37,6 +37,7 @@ class RezerwacjeForm(forms.ModelForm):
         return day  
 
 class KontaktForm(forms.ModelForm):
+    
      class Meta:
         model = Kontakt
         fields = '__all__'

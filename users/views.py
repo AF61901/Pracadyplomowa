@@ -25,7 +25,7 @@ def dodaj(request):
         form = DoctorRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('')
+            return redirect('rezerwacje-home')
     else:
         form = DoctorRegisterForm()
     return render(request, 'users/dodajlekarza.html', {'form': form})

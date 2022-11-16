@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -30,6 +30,7 @@ def kontakt(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Wysłano wiadomość!')
+            return redirect('/kontakt')
             
     else:
         form = KontaktForm()
@@ -44,11 +45,14 @@ def lekarze(request):
 
 def wiadomosci(request):
     context ={
-        'Kontakt': Kontakt.objects.all().order_by('submit_date') ,
+        'Kontakt': Kontakt.objects.all().order_by('-submit_date') ,
         "title" : "Wiadomości"
     }
     return render(request, 'rezerwacje/wiadomosci.html', context)
 
+class WiadomosciDeleteView(DeleteView):
+    model = Kontakt
+    success_url = reverse_lazy('rezerwacje-wiadomosci')
 
 class WizytyListView(LoginRequiredMixin, ListView):
     model = Rezerwacje

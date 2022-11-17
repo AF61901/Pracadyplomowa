@@ -6,7 +6,7 @@
         {% csrf_token %}
         <fieldset class="form-group">
             <legend>
-            <div id="tyt" ><h2 id="had" style="text-align: left;"><span id="spad">Zaloguj się</span></h2></div>
+            <div id="tyt" ><h2 id="had"><span id="spad">Zaloguj się</span></h2></div>
         </legend>
             {{ form|crispy }}
         </fieldset>
@@ -16,7 +16,7 @@
             </button>
         </div>
     </form>
-    <div class="border-top pt-3">
+    <div class="border-top pt-3" style="margin-bottom: 4.85rem;">
         <small>Nie masz konta? <a href="{% url 'rejestruj' %}">Zarejestruj się</a></small>
     </div>
 </div>

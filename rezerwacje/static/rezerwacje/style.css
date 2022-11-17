@@ -2,12 +2,49 @@ body{
     background-color: #f9f9f9;
     font-size: 17px;
 }
+footer{
+  padding-top: 3rem;
+}
+
+#footer-center {
+  font-size: 16px;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+#centerimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+#footer-left {
+  float: left;
+  font-size: 14px;
+  margin-bottom: 2rem;
+}
+
+#footer-right {
+  float: right;
+  margin-bottom: 2rem;
+}
+
+#section{
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 3rem;
+}
 
 #nv, #ft{
     background-color: #336b6d;
     font-size: 18px;
   }
 
+#ft{
+  color: white;
+}
 
 #shw{
     width: 150px;

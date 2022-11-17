@@ -79,7 +79,11 @@
           </a>
           <ul class="dropdown-menu">
             <li class="nav-item">
+              {% if user.is_patient %} 
               <a class="dropdown-item" href="{% url 'konto' %}">Moje konto</a>
+              {% elif user.is_doctor %}
+              <a class="dropdown-item" href="{% url 'kontol' %}">Moje konto</a>
+              {% endif %}
           </li> 
           {% if user.is_patient %} 
           <li class="nav-item">

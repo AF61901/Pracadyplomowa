@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, DoctorRegisterForm
+from .forms import UserRegisterForm, DoctorRegisterForm, UserUpdateForm, DoctorUpdateForm
 
 def rejestruj(request):
     if request.method == 'POST':
@@ -17,7 +17,41 @@ def rejestruj(request):
 
 @login_required
 def konto(request):
-    return render(request, 'users/konto.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance = request.user.pacjenci)
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, f'Konto zostało zaktualizowane!')
+            return redirect('konto')
+
+    else:
+        u_form = UserUpdateForm(instance = request.user.pacjenci)
+
+
+    context = {
+        'u_form': u_form
+    }
+
+    return render(request, 'users/konto.html', context)
+
+@login_required
+def kontol(request):
+    if request.method == 'POST':
+        p_form = DoctorUpdateForm(request.POST, instance = request.user.lekarze)
+        if p_form.is_valid:
+            p_form.save()
+            messages.success(request, f'Konto zostało zaktualizowane!')
+            return redirect('kontol')
+
+    else:
+        p_form = DoctorUpdateForm(instance = request.user.lekarze)
+
+
+    context = {
+        'p_form': p_form
+    }
+
+    return render(request, 'users/kontol.html', context)
 
 @login_required
 def dodaj(request):

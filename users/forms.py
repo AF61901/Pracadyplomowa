@@ -62,3 +62,23 @@ class DoctorRegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class UserUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model = Pacjenci
+        fields = ['email', 
+        'telefon',
+        'kod_pocztowy',
+        'miejscowosc',
+        'ulica',
+        'numer_domu',
+        'numer_lokalu']
+
+class DoctorUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model = Lekarze
+        fields = ['email', 
+        'telefon',
+        ]

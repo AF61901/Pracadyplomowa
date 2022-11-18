@@ -13,7 +13,7 @@ class UserRegisterForm(UserCreationForm):
     imie = forms.CharField(label='Imię')
     nazwisko = forms.CharField()
     telefon = PhoneNumberField(widget=TextInput(attrs={'type':'number'}))
-    PESEL = forms.CharField(widget=TextInput(attrs={'type':'number'}))
+    PESEL = forms.CharField(label='PESEL', widget=TextInput(attrs={'type':'number'}))
     kod_pocztowy = PLPostalCodeField()
     miejscowosc = forms.CharField(label='Miejscowość')
     ulica = forms.CharField()

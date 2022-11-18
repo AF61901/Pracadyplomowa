@@ -58,6 +58,7 @@ footer{
 
 #lek{
   width: 200px;
+  height: 200px;
   border-radius: 15px 0px 0px 15px ;
 }
 #olek{
@@ -69,6 +70,7 @@ footer{
 
 #cntimg{
     text-align: center;
+    margin-bottom: 1rem;
 }
 
 #btn{
@@ -225,7 +227,9 @@ footer{
       .carousel-item img{
         height: 300px;
       }
-      
+      #lek{
+        border-radius: 15px 0px 0px 0px ;
+      }
 
   }
 

@@ -37,11 +37,11 @@
           <li class="nav-item">
               <a class="nav-link" href="{% url 'rezerwacje-kontakt' %}">Kontakt</a>
             </li>
-          
+            {% if not user.is_doctor %} 
           <li class="nav-item">
             <a class="nav-link" href="{% url 'rezerwacje-umow' %}">Umów wizytę</a>
           </li>
-    
+            {% endif %}
         </ul>
   
         <ul class="nav navbar-nav navbar-right">

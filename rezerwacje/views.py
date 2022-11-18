@@ -16,7 +16,7 @@ from django.views.generic import (
 
 def home(request):
     context ={
-        'lekarze': Lekarze.objects.all()[:3],
+        'lekarze': Lekarze.objects.all()[2:5],
         "title" : "Strona Główna"
     }
     return render(request, 'rezerwacje/home.html', context)

@@ -21,7 +21,9 @@
 </div>
    
 <div class="col col-lg-12 col-xl-4" style="text-align:center ;">
+    {% if not user.is_doctor %} 
     <a href="{% url 'rezerwacje-rezerwuj' post.id %}"><button id="btn" style="margin-top: 4rem; margin-bottom: 1rem;">Umów wizytę</button></a>
+    {% endif %}
 </div>
 </div>
     

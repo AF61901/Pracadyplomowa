@@ -73,12 +73,12 @@ Dzięki pełnemu profesjonalizmowi, doskonale wykwalifikowanej kadrze medycznej 
         <div class="col" id="cntimg">
             <div class="row">
                 <div class="col">
-            <img id="shw"  src="{{ post.image.url }}">
+            <img id="shw"  src="{{ post.image.url }}" style="width: 160px; height: 160px">
                 </div>
     
             
                 </div>
-    <h3>{{ post.get_tytul_display }} {{ post.imie }} {{ post.nazwisko}}</h3>
+    <h4 style="margin-top: 1rem;">{{ post.get_tytul_display }} {{ post.imie }} {{ post.nazwisko}}</h4>
     <p class="text-secondary">{{ post.get_specjalizacja_display }}</p>
     </div>
     </div>
@@ -97,15 +97,18 @@ Dzięki pełnemu profesjonalizmowi, doskonale wykwalifikowanej kadrze medycznej 
 
 <div id="tyt" style="margin-top: 3rem;"><h2 id="had"><span id="spad">Poradnie specjalistyczne</span></h2></div>
 
-  <div class="row" style="margin-top: 2rem;">
+  <div class="row" style="margin-top: 3rem;">
 
   
 
     <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
         <div class="col" id="cntimg">
-            Dermatologia
+          <img  src="{% static 'rezerwacje/derm.png' %}" style="width: 100px;">
+            <h4>Dermatologia</h4>
             <div class="row">
                 <div class="col">
+                  Leczenie chorób skóry, włosów i paznokci. 
+                  Profilaktyka czerniaka, badanie znamion dermatoskopem i krioterapia.
                 </div>
     
             
@@ -116,9 +119,13 @@ Dzięki pełnemu profesjonalizmowi, doskonale wykwalifikowanej kadrze medycznej 
 
     <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
         <div class="col" id="cntimg">
-            Dermatologia
+          <img  src="{% static 'rezerwacje/kardi.png' %}" style="width: 100px;">
+          <h4>Kardiologia</h4>
             <div class="row">
                 <div class="col">
+Diagnostyka i leczenie pacjentów z chorobami układu krążenia, zespołami sercowo-płucnymi.
+Profilaktyka choroby wieńcowej i nadciśnieniowej.
+
                 </div>
     
             
@@ -128,9 +135,12 @@ Dzięki pełnemu profesjonalizmowi, doskonale wykwalifikowanej kadrze medycznej 
     </div>
     <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
         <div class="col" id="cntimg">
-            Dermatologia
+          <img  src="{% static 'rezerwacje/neur.png' %}" style="width: 100px;">
+          <h4>Neurologia</h4>
             <div class="row">
                 <div class="col">
+                  Schorzenia układu nerwowego. 
+                  Leczenie schorzeń, których podłożem jest proces uszkadzający układ nerwowy.
                 </div>
     
             
@@ -140,5 +150,63 @@ Dzięki pełnemu profesjonalizmowi, doskonale wykwalifikowanej kadrze medycznej 
     </div>
     
     </div>
+    <div class="row" style="margin-top: 2rem;">
 
+  
+
+      <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
+          <div class="col" id="cntimg">
+            <img  src="{% static 'rezerwacje/uro.png' %}" style="width: 100px;">
+            <h4>Urologia</h4>
+              <div class="row">
+                  <div class="col">
+                    Schorzenia układu moczowo-płciowego u mężczyzn oraz układu moczowego u kobiet, a także uroginekologia.
+                  </div>
+      
+              
+                  </div>
+  
+      </div>
+      </div>
+  
+      <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
+          <div class="col" id="cntimg">
+            <img  src="{% static 'rezerwacje/stom.png' %}" style="width: 100px;">
+            <h4> Stomatologia</h4>
+              <div class="row">
+                  <div class="col">
+                    Stomatologia zachowawcza, endodoncja, ortodoncja, periodontologia, protetyka, stomatologia estetyczna.
+                  </div>
+      
+              
+                  </div>
+  
+      </div>
+      </div>
+      <div class="col-12 col-sm-12 col-lg-6 col-xl-4" id="cntimg">
+          <div class="col" id="cntimg">
+            <img  src="{% static 'rezerwacje/ortop.png' %}" style="width: 100px;">
+             <h4>Ortopedia</h4>
+              <div class="row">
+                  <div class="col">
+                    Diagnoza, leczenie i rehabilitacja chorób narządu ruchu, amputacja i protezowanie kończyn, obrażenia czaszkowo-mózgowe i kręgosłupa, wady postawy.
+                  </div>
+      
+              
+                  </div>
+  
+      </div>
+      </div>
+      
+      </div>
+
+    <div id="tyt" style="margin-top: 3rem;"><h2 id="had"><span id="spad">Wizyta w przychodni</span></h2></div>
+    <img  src="{% static 'rezerwacje/zapraszamy.png' %}" style="margin-top: 2rem; height: 300px; width: 100%;">
+    <p style="text-align: center; margin-top: 2rem;">
+    Pacjenci przyjmowani są w dni powszednie w godzinach pracy poradni, na podstawie uprzedniego telefonicznego, internetowego lub bezpośredniego ustalenia terminu wizyty.
+  </p>
+
+<p style="text-align: center; margin-bottom: 3rem;">
+  Serdecznie zachęcamy do korzystania z możliwości rejestracji na wizyty lekarskie za pośrednictwem naszego portalu.
+</p>
 {% endblock content %}

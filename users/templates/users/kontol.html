@@ -11,11 +11,11 @@
         <div class="col-5 col-sm-5 col-md-5 col-lg-4 col-xl-4" style="margin-top: 2rem;">
             <h2>{{ user.lekarze.get_tytul_display }} {{ user.imie }}
                 {{ user.nazwisko }}</h2>
-            <p class="text-secondary">{{ user.email }}</p>
+            <p class="text-secondary">{{ user.lekarze.get_specjalizacja_display }}</p>
             <table class="table table-bordered table-striped table-hover">
                 <tr id="tbl">
-                  <th><strong>Specjalizacja</strong></th>
-                  <td>{{ user.lekarze.get_specjalizacja_display }}</td>
+                  <th><strong>Email</strong></th>
+                  <td>{{ user.email }}</td>
                </tr>
                <tr id="tbl">
                 <th><strong>Nr telefonu</strong></th>
@@ -29,7 +29,7 @@
                 {% csrf_token %}
                   <fieldset class="form-group">
                     <div id="zal">
-                        <div id="tyt" style="margin-bottom: 3rem;"><h2 id="had"><span id="spad">Zmień dane</span></h2></div> 
+                        <div id="tyt" style="margin-bottom: 3rem; background-color: white;"><h2 id="had"><span id="spad">Zmień dane</span></h2></div> 
                         </div>
                     <div class="form-group">
                         {{ p_form|crispy }}

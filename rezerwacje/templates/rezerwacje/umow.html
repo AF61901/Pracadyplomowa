@@ -4,7 +4,7 @@
 
 
 <div>
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover" style="margin-bottom: 3rem;">
   <tr id="tbl">
     <td><strong></strong></td>
     <td><strong>Lekarz</strong></td>
@@ -15,7 +15,7 @@
 
  {% for post in Lekarze %}
    <tr id="tbl">
-    <td style="text-align: center;"><img style="height: 60px; text-align: center;" src="{{ post.image.url }}"></td>
+    <td style="text-align: center;"><img style="height: 60px; width: 60px; text-align: center;" src="{{ post.image.url }}"></td>
    <td>{{ post.get_tytul_display }}  {{ post.imie }} {{ post.nazwisko}}</td>
    <td>{{ post.get_specjalizacja_display }}</td>
    <td>{{ post.telefon }}</td>

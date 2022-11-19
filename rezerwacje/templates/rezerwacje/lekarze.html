@@ -2,34 +2,41 @@
 {% block content %}
 
 <div id="tyt" style="margin-bottom: 3rem;"><h2 id="had"><span id="spad">Nasza kadra</span></h2></div>
-
-{% for post in lekarze %}
-<div id="olek">
 <div class="row">
-    <div class="col-5 col-sm-5 col-md-5 col-lg-3 col-xl-2">
+{% for post in lekarze %}
+<div class="col-12 col-sm-12 col-lg-6 col-xl-4" >
+    <div class="col" id="olek">
+        <div class="row">
+<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 <img id="lek" src="{{ post.image.url }}">
 </div>
-<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-5" style="margin-left: 1rem;">
+<div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5" style="margin-left: 1rem;">
 <h3 style="margin-top: 1.5rem;">{{ post.get_tytul_display}} {{ post.imie }} {{ post.nazwisko }}</h3>
-<p class="text-secondary"> {{ post.get_specjalizacja_display }}</p>
-<p><span class="material-symbols-outlined">mail
+<p class="text-secondary" style="margin-bottom: -5px;"> {{ post.get_specjalizacja_display }}</p>
+
+
+</div>
+   </div>
+   <div class="row" style="margin-top: 20px;">
+   <div class="col" style="margin-left: 10px;">
+   <p><span class="material-symbols-outlined">mail
 </span> {{ post.email }}</p>
 <p><span class="material-symbols-outlined">
     call
     </span> {{ post.telefon }}</p>
-
 </div>
-   
-<div class="col col-lg-12 col-xl-4" style="text-align:center ;">
+<div class="col" style="text-align:center ;">
     {% if not user.is_doctor %} 
-    <a href="{% url 'rezerwacje-rezerwuj' post.id %}"><button id="btn" style="margin-top: 4rem; margin-bottom: 1rem;">Umów wizytę</button></a>
+    <a href="{% url 'rezerwacje-rezerwuj' post.id %}"><button id="btn" style=" margin-bottom: 1rem;">Umów wizytę</button></a>
     {% endif %}
 </div>
-</div>
     
+</div>
 
+    
+</div>
 </div>
 {% endfor %}
-
+</div>
 <div style="margin-bottom: 3rem;"></div>
 {% endblock content %}

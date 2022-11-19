@@ -43,6 +43,7 @@ def lekarze(request):
     }
     return render(request, 'rezerwacje/lekarze.html', context)
 
+@login_required
 def wiadomosci(request):
     context ={
         'Kontakt': Kontakt.objects.all().order_by('-submit_date') ,
@@ -50,9 +51,24 @@ def wiadomosci(request):
     }
     return render(request, 'rezerwacje/wiadomosci.html', context)
 
+def wszrezerw(request):
+    context ={
+        'Rezerwacje': Rezerwacje.objects.all() ,
+        "title" : "Rezerwacje"
+    }
+    return render(request, 'rezerwacje/wszystkierezerwacje.html', context)
+
 class WiadomosciDeleteView(DeleteView):
     model = Kontakt
     success_url = reverse_lazy('rezerwacje-wiadomosci')
+
+class MojeDeleteView(DeleteView):
+    model = Rezerwacje
+    success_url = reverse_lazy('rezerwacje-moje')
+
+class WizytyDeleteView(DeleteView):
+    model = Rezerwacje
+    success_url = reverse_lazy('rezerwacje-wizyty')
 
 class WizytyListView(LoginRequiredMixin, ListView):
     model = Rezerwacje
@@ -77,6 +93,8 @@ class MojeListView(LoginRequiredMixin, ListView):
         return Rezerwacje.objects.filter(
             pacjent=self.request.user
         ).order_by('data')
+
+    
 
 class UmowListView(LoginRequiredMixin, ListView):
     model = Lekarze
@@ -104,7 +122,7 @@ def new_rezerwacja(request, id=None):
             messages.warning(request, f'Data się nie zgadza')
             return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
         elif data.isoweekday() > 5:
-            messages.warning(request, f'Nie w weekend')
+            messages.warning(request, f'Przychodnia pracuje w dni powszednie')
             return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
         else:
             zamowienie.save()

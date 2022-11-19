@@ -3,21 +3,59 @@
 {% block content %}
 
 {% if Rezerwacje %}
-<div id="spc" style="margin-bottom: 2rem;"><h1>Zaplanowane wizyty</h1></div>
+<div style="margin-bottom: 2rem;"><h1>Zaplanowane wizyty</h1></div>
 
 <div>
     <table class="table table-bordered table-striped table-hover">
-      <tr>
+      <tr id="tbl">
         <td><strong>Data</strong></td>
         <td><strong>Godzina</strong></td>
         <td><strong>Pacjent</strong></td>
+        <td><strong>Status</strong></td>
      </tr>
     
      {% for post in Rezerwacje %}
-       <tr>
+       <tr id="tbl">
        <td>{{ post.data }}</td>
        <td>{{ post.get_godzina_display }}</td>
        <td>{{ post.pacjent}}</td>
+       <td>{% if post.wtoku %}
+        W toku
+        {% else %}
+        Zakończono
+        {% endif %}
+      </td>
+
+      <td>
+        {% if post.wtoku %}
+        <button type="button" id="btn2" data-bs-toggle="modal" data-bs-target="#dlt{{post.id}}">
+          Anuluj
+        </button>
+        
+        <div class="modal fade" id="dlt{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+        
+              <div class="modal-body">
+                Czy na pewno anulować rezerwację:<br>
+                {{ post.data }} {{ post.get_godzina_display }}<br>
+                {{ post.pacjent }} 
+                  </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" id="btn2" data-bs-dismiss="modal">Nie</button>
+                <form action="{% url 'usun_wizyty' pk=post.id %}" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" id="post_id"/>
+                  <button type="submit" id="btn2">Tak</button>
+                </form>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+       </td>
+
     </tr>
        {% endfor %}
     

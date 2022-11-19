@@ -2,10 +2,10 @@
 {% block content %}
 
 {% if Rezerwacje %}
-<div style="margin-bottom: 2rem;"><h1>Moje Rezerwacje</h1></div>
-<div id="section">
+<div style="margin-bottom: 2rem;"><h1>Moje rezerwacje</h1></div>
+
 <table class="table table-bordered table-striped table-hover">
-  <tr>
+  <tr id="tbl">
     <td><strong>Lekarz</strong></td>
     <td><strong>Specjalizacja</strong></td>
   <td><strong>Data</strong></td>
@@ -14,19 +14,54 @@
  </tr>
 
  {% for post in Rezerwacje %}
-   <tr>
+   <tr id="tbl">
    <td>{{ post.lekarz }}</td>
    <td>{{ post.lekarz.lekarze.get_specjalizacja_display }}</td>
    <td>{{ post.data }}</td>
    <td>{{ post.get_godzina_display }}</td>
-   <td></td>
+   <td>{% if post.wtoku %}
+        W toku
+        {% else %}
+        Zakończono
+        {% endif %}
+  </td>
+
+   <td>
+    {% if post.wtoku %}
+    <button type="button" id="btn2" data-bs-toggle="modal" data-bs-target="#dlt{{post.id}}">
+      Anuluj
+    </button>
+    
+    <div class="modal fade" id="dlt{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <div class="modal-body">
+            Czy na pewno anulować rezerwację:<br>
+            {{ post.data }} {{ post.get_godzina_display }}<br>
+            {{ post.lekarz }} {{ post.lekarz.lekarze.get_specjalizacja_display }}
+              </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" id="btn2" data-bs-dismiss="modal">Nie</button>
+            <form action="{% url 'usun_moje' pk=post.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="id" id="post_id"/>
+              <button type="submit" id="btn2">Tak</button>
+            </form>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+   </td>
 </tr>
    {% endfor %}
 
  </table>
  {% else %}
-<h1 style="text-align: center; background-color: #336b6d; color: white; padding: 15px;">Brak zamówień</h1>
+<h1 style="text-align: center; background-color: #336b6d; color: white; padding: 15px;">Brak informacji</h1>
  {% endif %}
- </div> 
+ 
  <div style="margin-bottom: 3rem;"></div>
 {% endblock content %}

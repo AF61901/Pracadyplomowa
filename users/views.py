@@ -56,7 +56,7 @@ def kontol(request):
 @login_required
 def dodaj(request):
     if request.method == 'POST':
-        form = DoctorRegisterForm(request.POST)
+        form = DoctorRegisterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('rezerwacje-home')

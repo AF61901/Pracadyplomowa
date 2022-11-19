@@ -1,5 +1,38 @@
 {% extends "rezerwacje/base.html" %}
 {% block content %}
 
+{% if Rezerwacje %}
+<div style="margin-bottom: 2rem;"><h1>Rezerwacje</h1></div>
 
+<table class="table table-bordered table-striped table-hover">
+  <tr id="tbl">
+    <td><strong>Lekarz</strong></td>
+    <td><strong>Specjalizacja</strong></td>
+  <td><strong>Data</strong></td>
+  <td><strong>Godzina</strong></td>
+  <td><strong>Pacjent</strong></td>
+  <td><strong>Status</strong></td>
+ </tr>
+
+ {% for post in Rezerwacje %}
+   <tr id="tbl">
+   <td>{{ post.lekarz }}</td>
+   <td>{{ post.lekarz.lekarze.get_specjalizacja_display }}</td>
+   <td>{{ post.data }}</td>
+   <td>{{ post.pacjent }}</td>
+   <td>{{ post.get_godzina_display }}</td>
+   <td>{% if post.wtoku %}
+    W toku
+    {% else %}
+    Zakończono
+    {% endif %}</td>
+</tr>
+   {% endfor %}
+
+ </table>
+ {% else %}
+<h1 style="text-align: center; background-color: #336b6d; color: white; padding: 15px;">Brak rezerwacji</h1>
+ {% endif %}
+ 
+ <div style="margin-bottom: 3rem;"></div>
 {% endblock content %}

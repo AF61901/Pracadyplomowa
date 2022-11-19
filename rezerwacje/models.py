@@ -2,6 +2,7 @@ from django.db import models
 
 from users.models import TITLE_CHOICES, Lekarze, Pacjenci
 from phonenumber_field.modelfields import PhoneNumberField
+from datetime import date
 
 TIMESLOT_LIST = (
         (0, '08:00'),
@@ -51,6 +52,10 @@ class Rezerwacje(models.Model):
     @property
     def fullname_p(self):
         return '%s %s %s' % (self.pacjent.imie, self.pacjent.nazwisko, self.pacjent.PESEL)
+
+    @property
+    def wtoku(self):
+     return date.today() <= self.data
 
 
 class Kontakt(models.Model):

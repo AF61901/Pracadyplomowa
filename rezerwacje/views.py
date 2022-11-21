@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.core.exceptions import PermissionDenied
 from django.views.generic import (
     ListView,
     DetailView,
@@ -13,6 +14,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+
 
 def home(request):
     context ={
@@ -45,32 +47,48 @@ def lekarze(request):
 
 @login_required
 def wiadomosci(request):
-    context ={
-        'Kontakt': Kontakt.objects.all().order_by('-submit_date') ,
-        "title" : "Wiadomości"
-    }
-    return render(request, 'rezerwacje/wiadomosci.html', context)
+    if request.user.user_type == "M":
+        context ={
+            'Kontakt': Kontakt.objects.all().order_by('-submit_date') ,
+            "title" : "Wiadomości"
+        }
+        return render(request, 'rezerwacje/wiadomosci.html', context)
+    else:
+        return redirect('/')
 
+@login_required
 def wszrezerw(request):
-    context ={
-        'Rezerwacje': Rezerwacje.objects.all() ,
-        "title" : "Rezerwacje"
-    }
-    return render(request, 'rezerwacje/wszystkierezerwacje.html', context)
+    if request.user.user_type == "M":
+        context ={
+            'Rezerwacje': Rezerwacje.objects.all() ,
+            "title" : "Rezerwacje"
+        }
+        return render(request, 'rezerwacje/wszystkierezerwacje.html', context)
+    else:
+        return redirect('/')
 
-class WiadomosciDeleteView(DeleteView):
+class WiadomosciDeleteView(DeleteView, UserPassesTestMixin):
     model = Kontakt
     success_url = reverse_lazy('rezerwacje-wiadomosci')
 
-class MojeDeleteView(DeleteView):
+    def test_func(self):
+        return self.request.user.user_type == "M"
+
+class MojeDeleteView(DeleteView, UserPassesTestMixin):
     model = Rezerwacje
     success_url = reverse_lazy('rezerwacje-moje')
 
-class WizytyDeleteView(DeleteView):
+    def test_func(self):
+        return self.request.user.user_type == "P"
+
+class WizytyDeleteView(DeleteView, UserPassesTestMixin):
     model = Rezerwacje
     success_url = reverse_lazy('rezerwacje-wizyty')
 
-class WizytyListView(LoginRequiredMixin, ListView):
+    def test_func(self):
+        return self.request.user.user_type == "L"
+
+class WizytyListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Rezerwacje
     template_name = 'rezerwacje/wizyty.html'
     context_object_name = 'Rezerwacje'
@@ -82,8 +100,11 @@ class WizytyListView(LoginRequiredMixin, ListView):
             lekarz=self.request.user
         ).order_by('data')  
 
+    def test_func(self):
+        return self.request.user.user_type == "L"
 
-class MojeListView(LoginRequiredMixin, ListView):
+
+class MojeListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Rezerwacje
     template_name = 'rezerwacje/mojerezerwacje.html'
     context_object_name = 'Rezerwacje'
@@ -94,9 +115,13 @@ class MojeListView(LoginRequiredMixin, ListView):
             pacjent=self.request.user
         ).order_by('data')
 
+    def test_func(self):
+        return self.request.user.user_type == "P"
+
+
     
 
-class UmowListView(LoginRequiredMixin, ListView):
+class UmowListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Lekarze
     template_name = 'rezerwacje/umow.html'
     context_object_name = 'Lekarze'
@@ -105,30 +130,36 @@ class UmowListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Lekarze.objects.all()
 
+    def test_func(self):
+        return self.request.user.user_type == "P"
+
 @login_required
 def new_rezerwacja(request, id=None):
     form = RezerwacjeForm(request.POST)
     desc = Lekarze.objects.get(id=id)
+    
     if not request.user.is_authenticated:
         return redirect('/loguj')
+    if request.user.user_type == "P":
+        if form.is_valid():
+            data = form.cleaned_data['data']
+            godzina = form.cleaned_data['godzina']
+            zamowienie = Rezerwacje(pacjent=request.user.pacjenci, lekarz=desc,
+                data=data, godzina=godzina)
 
-    if form.is_valid():
-        data = form.cleaned_data['data']
-        godzina = form.cleaned_data['godzina']
-        zamowienie = Rezerwacje(pacjent=request.user.pacjenci, lekarz=desc,
-            data=data, godzina=godzina)
+            if data <= data.today():
+                messages.warning(request, f'Data się nie zgadza')
+                return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
+            elif data.isoweekday() > 5:
+                messages.warning(request, f'Przychodnia pracuje w dni powszednie')
+                return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
+            else:
+                zamowienie.save()
+                return redirect('/moje')
 
-        if data <= data.today():
-            messages.warning(request, f'Data się nie zgadza')
-            return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
-        elif data.isoweekday() > 5:
-            messages.warning(request, f'Przychodnia pracuje w dni powszednie')
-            return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
+
         else:
-            zamowienie.save()
-            return redirect('/moje')
-
-
+            form = RezerwacjeForm()
+            return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
     else:
-        form = RezerwacjeForm()
-        return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
+        return redirect('/')

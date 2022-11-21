@@ -29,14 +29,14 @@
                     <p>{{ user.pacjenci.kod_pocztowy }} {{ user.pacjenci.miejscowosc }}</td>
              </tr>
                </table>
-        
+       <a href="{% url 'change_password' %}"><button id="btn" style="width: 100%;">Zmień hasło</button></a>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-6" style="margin-top: 2rem;">
             <form method="POST" enctype="multipart/form-data">  
                 {% csrf_token %}
                   <fieldset class="form-group">
                     <div id="zal">
-                        <div id="tyt" style="margin-bottom: 3rem; background-color: white;" ><h2 id="had" ><span id="spad">Zmień dane</span></h2></div> 
+                        <legend class="border-bottom mb-4"><h1>Zmień dane</h1></legend>
                         </div>
                     <div class="form-group">
                         {{ u_form|crispy }}

@@ -1,22 +1,21 @@
 {% extends "rezerwacje/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="content-section">
+<div class="content-section" id="section" style="margin-bottom: 4rem;">
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend>
-            <div id="tyt" ><h2 id="had"><span id="spad">Zaloguj się</span></h2></div>
-        </legend>
+            <legend class="border-bottom mb-4"><h1>Zaloguj się</h1></legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
             <button type="submit" id="btn" style="width: 100%;">
                 Zaloguj
             </button>
+        
         </div>
     </form>
-    <div class="border-top pt-3" style="margin-bottom: 4.85rem;">
+    <div class="border-top pt-3">
         <small>Nie masz konta? <a href="{% url 'rejestruj' %}">Zarejestruj się</a></small>
     </div>
 </div>

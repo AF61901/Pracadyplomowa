@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rejestruj/', user_views.rejestruj, name='rejestruj'),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('dodaj/', user_views.dodaj, name='dodaj'),
     path('loguj/', auth_views.LoginView.as_view(template_name='users/loguj.html'), name='loguj'),
     path('wyloguj/', auth_views.LogoutView.as_view(template_name='users/wyloguj.html'), name='wyloguj'),
+    path('zmianahasla/', user_views.change_password, name='change_password'),
     path('', include('rezerwacje.urls'))
 ] 
 

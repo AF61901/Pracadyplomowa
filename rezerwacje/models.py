@@ -55,7 +55,7 @@ class Rezerwacje(models.Model):
 
     @property
     def wtoku(self):
-     return date.today() <= self.data
+     return date.today() < self.data
 
 
 class Kontakt(models.Model):

@@ -3,7 +3,7 @@
 {% block content %}
 
 {% if Rezerwacje %}
-<div style="margin-bottom: 2rem;"><h1>Zaplanowane wizyty</h1></div>
+<legend class="border-bottom mb-4"><h1>Zaplanowane wizyty</h1></legend>
 
 <div>
     <table class="table table-bordered table-striped table-hover">
@@ -12,6 +12,7 @@
         <td><strong>Godzina</strong></td>
         <td><strong>Pacjent</strong></td>
         <td><strong>Status</strong></td>
+        <td></td>
      </tr>
     
      {% for post in Rezerwacje %}

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="panel panel-default" style="margin-top: -1rem;">
     
-        <section id="section">
+        <section>
             <form method="POST" class="appointment-form">
                 <div class="row">
                     
@@ -34,22 +34,21 @@
                     
                 </div>
                 </div>
-                
-                <div class="col-3">
+                <div class="col" id="section">
+                <div class="col">
                 {{ form.data|as_crispy_field }}
             </div>
             
             
-                <div class="col-3" style="text-align: center;">
+                <div class="col" style="text-align: center;">
                 {{ form.godzina|as_crispy_field }}
             </div>
-            
+            <div style="text-align: center;"><button type="submit" id="btn" style="margin-bottom: 1rem;" >Zapisz</button></div>
+        </div>
 
      
         </div>
         
-   
-                <div style="text-align: center;"><button type="submit" id="btn" style="margin-bottom: 3rem; margin-top: 1rem;" >Zapisz</button></div>
                 
             </form>
             

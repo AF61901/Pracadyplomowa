@@ -1,19 +1,60 @@
 {% extends "rezerwacje/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="panel panel-default">
-    <div class="panel-body">
-        
-        <section>
+<div class="panel panel-default" style="margin-top: -1rem;">
+    
+        <section id="section">
             <form method="POST" class="appointment-form">
+                <div class="row">
+                    
                 {% csrf_token %}
-                {{ form|crispy }}
+                <div class="col-12 col-sm-12 col-lg-6 col-xl-4" >
+                    <div class="col" id="olek">
+                        <div class="row">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <img id="lek" src="{{ desc.image.url }}">
+                </div>
+                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5" style="margin-left: 1rem;">
+                <h3 style="margin-top: 1.5rem;">{{ desc.get_tytul_display}} {{ desc.imie }} {{ desc.nazwisko }}</h3>
+                <p class="text-secondary" style="margin-bottom: -5px;"> {{ desc.get_specjalizacja_display }}</p>
+                
+                
+                </div>
+                   </div>
+                   <div class="row" style="margin-top: 20px;">
+                   <div class="col" style="margin-left: 10px;">
+                   <p><span class="material-symbols-outlined">mail
+                </span> {{ desc.email }}</p>
+                <p><span class="material-symbols-outlined">
+                    call
+                    </span> {{ desc.telefon }}</p>
+                </div>
+                </div>
+                
+                    
+                </div>
+                </div>
+                
+                <div class="col-3">
+                {{ form.data|as_crispy_field }}
+            </div>
+            
+            
+                <div class="col-3" style="text-align: center;">
+                {{ form.godzina|as_crispy_field }}
+            </div>
+            
+
+     
+        </div>
+        
    
-                <button type="submit" id="btn">Zapisz</button>
+                <div style="text-align: center;"><button type="submit" id="btn" style="margin-bottom: 3rem; margin-top: 1rem;" >Zapisz</button></div>
                 
             </form>
+            
         </section>
-    </div>
+    
 </div>
 
 {% endblock content %}

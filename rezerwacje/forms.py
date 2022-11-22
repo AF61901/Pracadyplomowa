@@ -5,6 +5,8 @@ from django import forms
 from .models import Rezerwacje, Kontakt, TIMESLOT_LIST
 
 
+
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -14,8 +16,8 @@ class RezerwacjeForm(forms.ModelForm):
 
     godzina = forms.ChoiceField(
         choices=TIMESLOT_LIST,
-        label="Godziny przyjęć",
-        widget=forms.RadioSelect,
+        label="Godziny wizyt",
+        widget=forms.RadioSelect(attrs={ 'class': 'form-check-inline' }),
         required=True,
          )
 

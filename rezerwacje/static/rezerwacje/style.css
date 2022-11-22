@@ -198,14 +198,14 @@ footer{
         margin-left: 60px;
      }
 
-     .carousel-item{
+    .carousel-item{
         height: 400px;
       } 
-      .carousel-item img{
+    .carousel-item img{
         height: 400px;
       }
       
-
+  
   }
 
   
@@ -258,3 +258,30 @@ footer{
     }
 
   }
+
+.form-check-label{
+  border: 1px solid #3b8686;
+  border-radius: 20px;
+  padding: 7px;
+  margin-left: -15px;
+  margin-bottom: 5px;
+  background-color: #3b8686;
+  color: white;
+}
+
+.form-check-label:hover{
+ background-color: white;
+ color: #3b8686;
+ cursor: pointer;
+ 
+}
+
+.form-check-input:checked ~ .form-check-label {
+  background-color: white;
+ color: #3b8686;
+}
+
+.form-check-input{
+  display: none;
+}
+

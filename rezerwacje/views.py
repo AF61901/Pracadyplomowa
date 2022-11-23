@@ -60,7 +60,7 @@ def wiadomosci(request):
 def wszrezerw(request):
     if request.user.user_type == "M":
         context ={
-            'Rezerwacje': Rezerwacje.objects.all() ,
+            'Rezerwacje': Rezerwacje.objects.all().order_by('data') ,
             "title" : "Rezerwacje"
         }
         return render(request, 'rezerwacje/wszystkierezerwacje.html', context)

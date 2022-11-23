@@ -1,17 +1,17 @@
 {% extends "rezerwacje/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="content-section">
+<div class="content-section" id="section">
     <form method="POST" accept-charset="utf-8" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend>
-            <div id="tyt" ><h2 id="had" style="text-align: left;"><span id="spad">Dodaj lekarza</span></h2></div>
+                <legend class="border-bottom mb-4"><h1>Dodaj lekarza</h1></legend>
         </legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button type="submit" id="btn" style="width: 100%; margin-bottom: 3rem;">
+            <button type="submit" id="btn" style="width: 100%; margin-top: 2rem;">
                 Dodaj
             </button>
         </div>

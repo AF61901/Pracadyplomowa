@@ -11,6 +11,8 @@
         <td><strong>Data</strong></td>
         <td><strong>Godzina</strong></td>
         <td><strong>Pacjent</strong></td>
+        <td><strong>Email</strong></td>
+        <td><strong>Telefon</strong></td>
         <td><strong>Status</strong></td>
         <td></td>
      </tr>
@@ -20,6 +22,8 @@
        <td>{{ post.data }}</td>
        <td>{{ post.get_godzina_display }}</td>
        <td>{{ post.pacjent}}</td>
+       <td>{{ post.pacjent.email}}</td>
+       <td>{{ post.pacjent.telefon}}</td>
        <td>{% if post.wtoku %}
         W toku
         {% else %}

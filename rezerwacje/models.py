@@ -35,6 +35,13 @@ class Rezerwacje(models.Model):
     data = models.DateField()
     godzina = models.IntegerField(choices=TIMESLOT_LIST)
 
+    def check_reser(self):
+        if Rezerwacje.objects.filter(lekarz=self.lekarz, data=self.data, godzina=self.godzina).\
+            exists():
+            return False
+
+        return True
+
     
 
     def __str__(self):

@@ -153,6 +153,7 @@ def new_rezerwacja(request, id=None):
             godzina = form.cleaned_data['godzina']
             zamowienie = Rezerwacje(pacjent=request.user.pacjenci, lekarz=desc,
                 data=data, godzina=godzina)
+            is_avaible = zamowienie.check_reser()
 
             if data <= data.today():
                 messages.warning(request, f'Data się nie zgadza')
@@ -160,11 +161,13 @@ def new_rezerwacja(request, id=None):
             elif data.isoweekday() > 5:
                 messages.warning(request, f'Przychodnia pracuje w dni powszednie')
                 return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
-            else:
+            elif is_avaible:
                 zamowienie.save()
                 messages.success(request, f'Zarezerwowano termin wizyty!')
                 return redirect('/moje')
-
+            else:
+                messages.warning(request, f'Termin jest już zarezerwowany')
+                return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
 
         else:
             form = RezerwacjeForm()

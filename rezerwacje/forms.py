@@ -37,6 +37,7 @@ class RezerwacjeForm(forms.ModelForm):
             raise forms.ValidationError('Data powinna być dniem roboczym)', code='invalid')
 
         return day  
+    
 
 class KontaktForm(forms.ModelForm):
     

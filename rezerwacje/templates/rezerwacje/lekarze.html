@@ -19,11 +19,19 @@
    </div>
    <div class="row" style="margin-top: 20px;">
    <div class="col">
-   <p><span class="material-symbols-outlined">mail
-</span> {{ post.email }}</p>
-<p><span class="material-symbols-outlined">
-    call
-    </span> {{ post.telefon }}</p>
+    <table class="table table-bordered table-striped table-hover">
+        <tr id="tbl">
+          <th><strong><span class="material-symbols-outlined">mail
+        </span></strong></th>
+          <td>{{ post.email }}</td>
+       </tr>
+       <tr id="tbl">
+        <th><strong><span class="material-symbols-outlined">
+            call
+            </span></strong></th>
+        <td>{{ post.telefon }}</td>
+     </tr>
+       </table>
 </div>
 <div class="col" style="text-align:center ;">
     {% if not user.is_doctor %} 

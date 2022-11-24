@@ -4,10 +4,10 @@
 <div class="panel panel-default" style="margin-top: -1rem;">
     
         <section>
-            <form method="POST" class="appointment-form">
+            
                 <div class="row">
                     
-                {% csrf_token %}
+                
                 <div class="col-12 col-sm-12 col-lg-6 col-xl-4" >
                     <div class="col" id="section">
                         <div class="row">
@@ -17,25 +17,34 @@
                 <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5" style="margin-left: 1rem;">
                 <h3 style="margin-top: 1.5rem;">{{ desc.get_tytul_display}} {{ desc.imie }} {{ desc.nazwisko }}</h3>
                 <p class="text-secondary" style="margin-bottom: -5px;"> {{ desc.get_specjalizacja_display }}</p>
-                
-                
                 </div>
                    </div>
                    <div class="row" style="margin-top: 20px;">
-                   <div class="col" style="margin-left: 10px;">
-                   <p><span class="material-symbols-outlined">mail
-                </span> {{ desc.email }}</p>
-                <p><span class="material-symbols-outlined">
-                    call
-                    </span> {{ desc.telefon }}</p>
-                </div>
+                    <div class="col">
+                        <table class="table table-bordered table-striped table-hover">
+                            <tr id="tbl">
+                              <th><strong><span class="material-symbols-outlined">mail
+                            </span> </strong></th>
+                              <td>{{ desc.email }}</td>
+                           </tr>
+                           <tr id="tbl">
+                            <th><strong><span class="material-symbols-outlined">
+                                call
+                                </span> </strong></th>
+                            <td>{{ desc.telefon }}</td>
+                         </tr>
+                           </table>
+                    </div>
                 </div>
                 
                     
                 </div>
+                <a href="{% url 'rezerwacje-umow' %}"><button id="btn" style="margin-bottom: 1rem; width: 100%;" >Cofnij</button></a>
                 </div>
                 <div class="col" id="section">
                 <div class="col">
+                    <form method="POST" class="appointment-form">
+                        {% csrf_token %}
                 {{ form.data|as_crispy_field }}
             </div>
             

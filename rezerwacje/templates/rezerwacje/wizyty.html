@@ -1,11 +1,23 @@
 
 {% extends "rezerwacje/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 {% if Rezerwacje %}
 <legend class="border-bottom mb-4"><h1>Zaplanowane wizyty</h1></legend>
-
-<div>
+<div class="row">
+  <div class="col-12 col-xl-3">
+  <div id="section" class="col">
+    <form method="get">
+      {{form|crispy}}
+  
+  <button id="btn2" type="submit" style="margin-top: 1rem;">Szukaj</button>
+  
+    </form>
+  </div>
+  </div>
+  <div class="col">
+<div class="table-responsive">
     <table class="table table-bordered table-striped table-hover">
       <tr id="tbl">
         <td><strong>Data</strong></td>
@@ -63,10 +75,23 @@
 
     </tr>
        {% endfor %}
-    
+     
      </table>
+    </div>
+  </div>
+</div>
      {% else %}
-    <h1 style="text-align: center; background-color: #336b6d; color: white; padding: 15px;">Brak zamówień</h1>
+    <h1 style="text-align: center; background-color: #336b6d; color: white; padding: 15px;">Brak wizyt</h1>
+  
+      <div id="section" class="col">
+        <form method="get">
+          {{form|crispy}}
+      
+      <button id="btn2" type="submit" style="margin-top: 1rem;">Szukaj</button>
+      
+        </form>
+      </div>
+ 
      {% endif %}
      </div> 
     <div style="margin-bottom: 3rem;"></div>

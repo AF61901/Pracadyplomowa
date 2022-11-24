@@ -72,6 +72,7 @@ footer{
 
 #ft{
   color: white;
+  margin-top: 0.25rem;
 }
 
 #shw{
@@ -118,7 +119,7 @@ footer{
 
 #btn2{   
     background-color: #3b8686;   
-   
+
     border: 2px solid #3b8686;
      color: white;   
      padding: 10px;   

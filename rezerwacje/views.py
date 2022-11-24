@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.core.exceptions import PermissionDenied
+from .filters import UmowFilter, RezerwFilter, RezerwlFilter, RezerwpFilter
 from django.views.generic import (
     ListView,
     DetailView,
@@ -58,80 +58,87 @@ def wiadomosci(request):
 
 @login_required
 def wszrezerw(request):
+    rezerw_filter = RezerwFilter(request.GET, queryset=Rezerwacje.objects.all().order_by('data'))
+
     if request.user.user_type == "M":
         context ={
-            'Rezerwacje': Rezerwacje.objects.all().order_by('data') ,
+            'Rezerwacje': rezerw_filter.qs,
+            'rezerw_filter': rezerw_filter.form,
             "title" : "Rezerwacje"
         }
         return render(request, 'rezerwacje/wszystkierezerwacje.html', context)
     else:
         return redirect('/')
 
-class WiadomosciDeleteView(DeleteView, UserPassesTestMixin):
+class WiadomosciDeleteView(DeleteView):
     model = Kontakt
     success_url = reverse_lazy('rezerwacje-wiadomosci')
 
-    def test_func(self):
-        return self.request.user.user_type == "M"
 
-class MojeDeleteView(DeleteView, UserPassesTestMixin):
+class MojeDeleteView(DeleteView):
     model = Rezerwacje
     success_url = reverse_lazy('rezerwacje-moje')
 
-    def test_func(self):
-        return self.request.user.user_type == "P"
 
-class WizytyDeleteView(DeleteView, UserPassesTestMixin):
+class WizytyDeleteView(DeleteView):
     model = Rezerwacje
     success_url = reverse_lazy('rezerwacje-wizyty')
 
-    def test_func(self):
-        return self.request.user.user_type == "L"
 
-class WizytyListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class WizytyListView(LoginRequiredMixin, ListView):
     model = Rezerwacje
     template_name = 'rezerwacje/wizyty.html'
     context_object_name = 'Rezerwacje'
 
 
-
     def get_queryset(self):
-        return Rezerwacje.objects.filter(
+        self.filterset = RezerwpFilter(self.request.GET, queryset=Rezerwacje.objects.filter(
             lekarz=self.request.user
-        ).order_by('data')  
+        ).order_by('data')) 
+        return self.filterset.qs
 
-    def test_func(self):
-        return self.request.user.user_type == "L"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context
 
 
-class MojeListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class MojeListView(LoginRequiredMixin, ListView):
     model = Rezerwacje
     template_name = 'rezerwacje/mojerezerwacje.html'
     context_object_name = 'Rezerwacje'
 
-
     def get_queryset(self):
-        return Rezerwacje.objects.filter(
+        self.filterset = RezerwlFilter(self.request.GET, queryset=Rezerwacje.objects.filter(
             pacjent=self.request.user
-        ).order_by('data')
+        ).order_by('data'))
+        return self.filterset.qs
 
-    def test_func(self):
-        return self.request.user.user_type == "P"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context
 
 
     
 
-class UmowListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class UmowListView(LoginRequiredMixin, ListView):
     model = Lekarze
+    queryset = Lekarze.objects.all()
     template_name = 'rezerwacje/umow.html'
     context_object_name = 'Lekarze'
 
-
     def get_queryset(self):
-        return Lekarze.objects.all()
+        queryset = super().get_queryset()
+        self.filterset = UmowFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
 
-    def test_func(self):
-        return self.request.user.user_type == "P"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context
+
+
 
 @login_required
 def new_rezerwacja(request, id=None):
@@ -155,6 +162,7 @@ def new_rezerwacja(request, id=None):
                 return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
             else:
                 zamowienie.save()
+                messages.success(request, f'Zarezerwowano termin wizyty!')
                 return redirect('/moje')
 
 

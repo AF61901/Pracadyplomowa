@@ -147,3 +147,11 @@ MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 MEDIA_URL='/media/'
 
 
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '5d5254cacd55bf'
+EMAIL_HOST_PASSWORD = 'ff41c8806dfa22'
+EMAIL_PORT = '2525'
+DEFAULT_FROM_EMAIL = 'medmed@przychodnia.com'
+SERVER_EMAIL = 'medmed@przychodnia.com'
+
+

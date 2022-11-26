@@ -6,6 +6,9 @@ from phonenumber_field.formfields import PhoneNumberField
 from localflavor.pl.forms import PLPostalCodeField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, HTML, Row, Column
+from django.core.mail import send_mail
+from random import choice
+from django.conf import settings
 
 
 
@@ -81,8 +84,6 @@ class DoctorRegisterForm(UserCreationForm):
         model = Lekarze
         MyUser.is_doctor
         fields = ['email', 
-        'password1', 
-        'password2', 
         'imie', 
         'nazwisko',
         'telefon',
@@ -90,14 +91,22 @@ class DoctorRegisterForm(UserCreationForm):
         'specjalizacja', 
         'image']
 
+    def clean(self):
+        password = ''.join([choice('1234567890qwertyuiopasdfghjklzxcvbnm') for i in range(8)])
+        self.cleaned_data['password1'] = password
+        email = self.cleaned_data['email']
+        message = "Twoje konto zostało utworzone! Twoje hasło to: " +password
+        subject = "Konto zostało utworzone!"
+        send_mail(subject, message, settings.SERVER_EMAIL, [email])
+
+        return super().clean()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
             'email', 
-        'password1', 
-        'password2',
             Row(
                 Column('imie', css_class='form-group col-md-6 mb-0'),
                 Column('nazwisko', css_class='form-group col-md-6 mb-0'),
@@ -115,6 +124,7 @@ class DoctorRegisterForm(UserCreationForm):
     def save(self, commit=True):
         user = super(DoctorRegisterForm, self).save(commit=False)
         user.user_type = "L"
+        user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
         return user

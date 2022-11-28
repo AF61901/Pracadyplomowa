@@ -9,6 +9,7 @@ from .models import Rezerwacje, Kontakt, TIMESLOT_LIST
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+    
 
 class RezerwacjeForm(forms.ModelForm):
 

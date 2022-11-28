@@ -10,9 +10,11 @@
     <form method="get">
       {{rezerw_filter|crispy}}
   
-  <button id="btn2" type="submit" style="margin-top: 1rem;">Szukaj</button>
-  
+  <button id="btn" type="submit" style="margin-top: 1rem;">Szukaj</button>
     </form>
+    <a href="{%  url 'rezerwacje-rezerwacje' %}"><button id="btn" type="submit" style="margin-top: 1rem;">Reset</button></a>
+    
+  
   </div>
   </div>
   <div class="col">
@@ -82,9 +84,11 @@
     <form method="get">
       {{rezerw_filter|crispy}}
   
-  <button id="btn2" type="submit" style="margin-top: 1rem;">Szukaj</button>
+  <button id="btn" type="submit" style="margin-top: 1rem;">Szukaj</button>
+  <a class="btn btn-warning" href="{% url 'App:FilterView' %}"><button id="btn">Reset</button></a>
   
     </form>
+    <a href="{%  url 'rezerwacje-rezerwacje' %}"><button id="btn" type="submit" style="margin-top: 1rem;">Reset</button></a>
   </div>
   </div>
  {% endif %}

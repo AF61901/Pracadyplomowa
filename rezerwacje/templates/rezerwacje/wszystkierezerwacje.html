@@ -1,5 +1,6 @@
 {% extends "rezerwacje/base.html" %}
 {% load crispy_forms_tags %}
+{% load rezerwacje_extras %}
 {% block content %}
 
 {% if Rezerwacje %}
@@ -7,8 +8,9 @@
 <div class="row">
 <div class="col-12 col-xl-3">
   <div id="section" class="col">
+    
     <form method="get">
-      {{rezerw_filter|crispy}}
+      {{Rezerwacje.form|crispy}}
   
   <button id="btn" type="submit" style="margin-top: 1rem;">Szukaj</button>
     </form>
@@ -29,7 +31,7 @@
   <td></td>
  </tr>
 
- {% for post in Rezerwacje %}
+ {% for post in p_obj %}
 
    <tr id="tbl">
    <td>{{ post.lekarz }}</td>
@@ -75,6 +77,26 @@
 
  </table>
 </div>
+
+      {% if p_obj.has_previous %}
+        <a  href="{% my_url 1 'page' request.GET.urlencode %}"><button id="btnpg"><<</button></a>
+        <a  href="{% my_url p_obj.previous_page_number 'page' request.GET.urlencode %}"><button id="btnpg"><</button></a>
+      {% endif %}
+
+      {% for num in p_obj.paginator.page_range %}
+        {% if p_obj.number == num %}
+          <a  href="?page={{ num }}"><button id="btnactv">{{ num }}</button></a>
+        {% elif num > p_obj.number|add:'-3' and num < p_obj.number|add:'3' %}
+          <a  href="?page={{ num }}"><button id="btnpg">{{ num }}</button></a>
+        {% endif %}
+      {% endfor %}
+
+      {% if p_obj.has_next %}
+        <a  href="{% my_url  p_obj.next_page_number 'page' request.GET.urlencode %}"><button id="btnpg">></button></a>
+        <a  href="{% my_url p_obj.paginator.num_pages 'page' request.GET.urlencode %}"><button id="btnpg">>></button></a>
+      {% endif %}
+
+
 </div>
  </div>
  {% else %}
@@ -92,6 +114,6 @@
   </div>
   </div>
  {% endif %}
- 
+
  <div style="margin-bottom: 3rem;"></div>
 {% endblock content %}

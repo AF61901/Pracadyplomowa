@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .filters import UmowFilter, RezerwFilter, RezerwlFilter, RezerwpFilter
 from django.views.generic import (
     ListView,
@@ -47,9 +48,14 @@ def lekarze(request):
 
 @login_required
 def wiadomosci(request):
+    kontakt = Kontakt.objects.all().order_by('-submit_date')
+    p = Paginator(kontakt, 10)
+    page_number = request.GET.get('page')
+    p_obj = p.get_page(page_number)
     if request.user.user_type == "M":
         context ={
-            'Kontakt': Kontakt.objects.all().order_by('-submit_date') ,
+            'Kontakt': kontakt ,
+            'p_obj': p_obj,
             "title" : "Wiadomości"
         }
         return render(request, 'rezerwacje/wiadomosci.html', context)
@@ -59,11 +65,13 @@ def wiadomosci(request):
 @login_required
 def wszrezerw(request):
     rezerw_filter = RezerwFilter(request.GET, queryset=Rezerwacje.objects.all().order_by('data'))
-
+    p = Paginator(rezerw_filter.qs, 10)
+    page_number = request.GET.get('page')
+    p_obj = p.get_page(page_number)
     if request.user.user_type == "M":
         context ={
-            'Rezerwacje': rezerw_filter.qs,
-            'rezerw_filter': rezerw_filter.form,
+            'Rezerwacje': rezerw_filter,
+            'p_obj': p_obj,
             "title" : "Rezerwacje"
         }
         return render(request, 'rezerwacje/wszystkierezerwacje.html', context)
@@ -89,7 +97,7 @@ class WizytyListView(LoginRequiredMixin, ListView):
     model = Rezerwacje
     template_name = 'rezerwacje/wizyty.html'
     context_object_name = 'Rezerwacje'
-
+    paginate_by = 10
 
     def get_queryset(self):
         self.filterset = RezerwpFilter(self.request.GET, queryset=Rezerwacje.objects.filter(
@@ -107,6 +115,7 @@ class MojeListView(LoginRequiredMixin, ListView):
     model = Rezerwacje
     template_name = 'rezerwacje/mojerezerwacje.html'
     context_object_name = 'Rezerwacje'
+    paginate_by = 10
 
     def get_queryset(self):
         self.filterset = RezerwlFilter(self.request.GET, queryset=Rezerwacje.objects.filter(

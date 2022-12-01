@@ -10,7 +10,7 @@ def rejestruj(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('imie')
+            username = form.cleaned_data.get('email')
             messages.success(request, f'Konto zostało utworzone dla {username}!')
             return redirect('loguj')
     else:

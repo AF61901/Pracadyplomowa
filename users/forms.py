@@ -41,6 +41,18 @@ class UserRegisterForm(UserCreationForm):
         'numer_domu',
         'numer_lokalu']
 
+    def clean_imie(self):
+        return self.cleaned_data['imie'].capitalize()
+
+    def clean_nazwisko(self):
+        return self.cleaned_data['nazwisko'].capitalize()
+    
+    def clean_miejscowowsc(self):
+        return self.cleaned_data['miejscowowsc'].capitalize()
+
+    def clean_ulica(self):
+        return self.cleaned_data['ulica'].capitalize()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -91,18 +103,13 @@ class DoctorRegisterForm(UserCreationForm):
         'specjalizacja', 
         'image']
 
-    def clean(self):
-        password = ''.join([choice('1234567890qwertyuiopasdfghjklzxcvbnm') for i in range(8)])
-        self.cleaned_data['password1'] = password
-        email = self.cleaned_data['email']
-        message = "Twoje konto zostało utworzone! Twoje hasło to: " +password
-        subject = "Konto zostało utworzone!"
-        send_mail(subject, message, settings.SERVER_EMAIL, [email])
-
-        return super().clean()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['password1'].required = False
+        self.fields['password2'].required = False
+        self.fields['password1'].widget.attrs['autocomplete'] = 'off'
+        self.fields['password2'].widget.attrs['autocomplete'] = 'off'
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -121,13 +128,30 @@ class DoctorRegisterForm(UserCreationForm):
             'image',
         )
 
+    def clean_imie(self):
+        return self.cleaned_data['imie'].capitalize()
+
+    def clean_nazwisko(self):
+        return self.cleaned_data['nazwisko'].capitalize()
+
+
+
     def save(self, commit=True):
         user = super(DoctorRegisterForm, self).save(commit=False)
         user.user_type = "L"
+        password = ''.join([choice('1234567890qwertyuiopasdfghjklzxcvbnm') for i in range(8)])
+        self.cleaned_data['password1'] = password
+        self.cleaned_data['imie'].capitalize()
+        self.cleaned_data['nazwisko'].capitalize()
         user.set_password(self.cleaned_data['password1'])
         if commit:
+            
+            message = "Twoje konto zostało utworzone! Twoje hasło to: " +password
+            subject = "Konto zostało utworzone!"
+            send_mail(subject, message, settings.SERVER_EMAIL, [user.email])
             user.save()
         return user
+
 
 class UserUpdateForm(forms.ModelForm):
     

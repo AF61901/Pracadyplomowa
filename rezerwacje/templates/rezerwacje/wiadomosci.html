@@ -82,7 +82,7 @@
 
  </table>
 
-
+ {% if p_obj.paginator.num_pages > 1 %}
       {% if p_obj.has_previous %}
         <a  href="?page=1"><button id="btnpg"><<</button></a>
         <a  href="?page={{ p_obj.previous_page_number }}"><button id="btnpg"><</button></a>
@@ -90,7 +90,7 @@
 
       {% for num in p_obj.paginator.page_range %}
         {% if p_obj.number == num %}
-          <a href="?page={{ num }}"><button id="btnpg">{{num}}</button></a>
+          <a href="?page={{ num }}"><button id="btnactv">{{num}}</button></a>
         {% elif num > p_obj.number|add:'-3' and num < p_obj.number|add:'3' %}
           <a href="?page={{ num }}"><button id="btnpg">{{num}}</button></a>
         {% endif %}
@@ -100,8 +100,8 @@
         <a  href="?page={{ p_obj.next_page_number }}"><button id="btnpg">></button></a>
         <a  href="?page={{ p_obj.paginator.num_pages }}"><button id="btnpg">>></button></a>
       {% endif %}
-
- 
+  {% endif %}
+   
  {% else %}
 <h1 style="text-align: center; background-color: #3b8686; color: white; padding: 15px;">Brak wiadomości</h1>
  {% endif %}

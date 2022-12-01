@@ -15,11 +15,12 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django_filters.views import FilterView
 
 
 def home(request):
     context ={
-        'lekarze': Lekarze.objects.all()[2:5],
+        'lekarze': Lekarze.objects.all()[3:6],
         "title" : "Strona Główna"
     }
     return render(request, 'rezerwacje/home.html', context)

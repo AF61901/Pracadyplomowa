@@ -41,8 +41,15 @@ class RezerwacjeForm(forms.ModelForm):
     
 
 class KontaktForm(forms.ModelForm):
-    
-     class Meta:
+    def clean_tytul(self):
+        return self.cleaned_data['tytul'].capitalize()
+
+    def clean_imieinazwisko(self):
+        return self.cleaned_data['imieinazwisko'].capitalize()
+
+
+
+    class Meta:
         model = Kontakt
         fields = '__all__'
         exclude = ('submit_date',)

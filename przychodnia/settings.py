@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'phonenumber_field',
     'localflavor',
+    'django_extensions',
     'django_filters'
 ]
 

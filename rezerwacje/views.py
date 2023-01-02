@@ -169,7 +169,7 @@ def new_rezerwacja(request, id=None):
                 messages.warning(request, f'Data się nie zgadza')
                 return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
             elif data.isoweekday() > 5:
-                messages.warning(request, f'Przychodnia pracuje w dni powszednie')
+                messages.warning(request, f'Przychodnia pracuje w dni robocze')
                 return render(request, 'rezerwacje/rezerwuj.html', {'desc': desc,'form': form})
             elif is_avaible:
                 zamowienie.save()

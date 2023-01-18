@@ -45,7 +45,7 @@ class KontaktForm(forms.ModelForm):
         return self.cleaned_data['tytul'].capitalize()
 
     def clean_imieinazwisko(self):
-        return self.cleaned_data['imieinazwisko'].capitalize()
+        return self.cleaned_data['imieinazwisko'].title()
 
 
 
